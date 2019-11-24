@@ -1,0 +1,33 @@
+{% extends "users/base.html" %}
+
+   <div class="media-body">
+      <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">
+   </div>
+
+{% block content%}
+
+{% if messages %}
+<ul>
+   {% for message in messages %}
+	   <li>{{ message }}</li>
+   {% endfor %}
+</ul>
+{% endif %}
+
+{% load crispy_forms_tags %}
+
+    <div class="media-body">
+          <h2>Hello {{ user.username }}, since Santa will be very busy this year, please deliver a present to {{ user.profile.Assigned }}</h2>
+          <h2> This is {{ user.profile.Assigned }}'s Wishlist: </h2>
+    </div>
+
+    <div>
+      <ol>
+        <li>{{ user.profile.SSWW1 }} </li>
+        <li>{{ user.profile.SSWW2 }} </li>
+        <li>{{ user.profile.SSWW3 }} </li>
+      </ol>
+    </div>
+
+{% endblock content %}
+

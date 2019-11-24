@@ -1,0 +1,97 @@
+{% load static %}
+{% load crispy_forms_tags %}
+<!DOCTYPE html>
+<html>
+<head>
+
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{% static '/user/main.css' %}">
+
+
+
+
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <div class="container">
+          <img src = {% static 'SecretSantaV1/images/pic_santa1.gif' %} width="50" height="50" alt="jpg">
+            <li class="navbar-brand">Hiscocks Family Secret Santa</li>
+            <div id="navbarNav">
+                <ul class="form-inline my-2 my-lg-0">
+                <li class="nav-item">
+                  <a class="nav-link " href="{% url 'profile' %}">{{user.username}}</a>
+                </li>
+                <li class="nav-item">
+                 {% if request.user.is_authenticated %}
+                  <a class="nav-link " href="{% url 'logout' %}">Logout</a>
+                 {% endif %}
+                </li>
+                </li>
+              </ul>
+            </div>
+      </div>
+  </nav>
+
+{%block body%}
+  <div class="container">
+    <ol class="breadcrumb my-4">
+      {% block breadcrumb %}
+      {% endblock %}
+    </ol>
+  </div>
+{% endblock body %}
+
+</head>
+<body>
+
+
+    <main role="main" class="container">
+      <div class="row">
+        <div class="col-md-8">
+          {% block content %}{% endblock %}
+        </div>
+        <div class="col-md-4">
+          <div class="content-section">
+            <h3></h3>
+            <p class='text-muted'>
+              <ul class="list-group">
+                <li class="list-group-item list-group-item-light">
+                      <script>
+                        today=new Date();
+                        var cmas=new Date(today.getFullYear(), 11, 25);
+                        if (today.getMonth()==11 && today.getDate()>25)
+                        {
+                        cmas.setFullYear(cmas.getFullYear()+1);
+                        }
+                        var one_day=1000*60*60*24;
+                        document.write(Math.ceil((cmas.getTime()-today.getTime())/(one_day))+
+                        " days left until Christmas!");
+                      </script>
+                </li>
+                <li class="list-group-item list-group-item-light">Secret Santa Budget = £15</li>
+                    {% if request.user.is_authenticated %}
+                        <a class="list-group-item list-goup-item-light" href="{% url 'askquestion' %}">Ask your recipient a question</a>
+                        <a class="list-group-item list-goup-item-light" href="{% url 'replyquestion' %}">Reply to your secret santa</a>
+              {% endif %}
+
+                    {% if user.username == "matt" %}
+                        <form action='actionUrl' method='GET'>
+                             <button type='submit'>Randomise</button>
+              {% endif %}
+              </ul>
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>
