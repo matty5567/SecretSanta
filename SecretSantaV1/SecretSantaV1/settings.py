@@ -100,6 +100,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+static_root = 'home/matt/SecretSantaV1/static'
+
 
 LOGIN_URL = 'login'
 LOGOUT_URL = 'logout'
